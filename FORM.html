@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Registration Form</title>
+ <link rel="stylesheet" type="text/css" href="form.css">
+ <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body bgcolor="lightgrey">
+ <div class="container">
+  <form id="regForm" onsubmit="return validateForm()">
+   <h1>Registration Form</h1>
+<span id="successMsg" class="success-message"></span>
+   <label for="fname"><b>First Name</b></label>
+   <input type="text" placeholder="Enter First Name" name="fname">
+
+   <label for="lname"><b>Last Name</b></label>
+   <input type="text" placeholder="Enter Last Name" name="lname">
+
+   <label for="nickname"><b>Nick Name</b></label>
+   <input type="text" placeholder="Enter Nick Name" name="nickname">
+
+   <label for="email"><b>Email</b></label>
+   <input type="email" placeholder="Enter Email" name="email">
+
+   <label for="password"><b>Password</b></label>
+   <input type="password" placeholder="Enter Password" name="password">
+   <span id="passwordError" class="error-message"></span>
+
+   <label for="dob"><b>Date of Birth (dd/mm/yyyy)</b></label>
+   <input type="date" placeholder="Enter Date of Birth" name="dob">
+   <span id="dobError" class="error-message"></span>
+
+   <label for="gender"><b>Gender</b></label>
+   <input type="radio" name="gender" value="male" checked> Male
+   <input type="radio" name="gender" value="female"> Female
+   <input type="radio" name="gender" value="other"> Other
+
+   <label for="phone"><b>Mobile Number</b></label>
+   <input type="tel" placeholder="Enter Mobile Number" name="phone">
+
+   <label for="address"><b>Address</b></label>
+   <textarea placeholder="Enter Address" name="address" required></textarea>
+
+   <div class="clearfix">
+    <button type="button" onclick="validateForm()" class="btn green">Submit</button>
+    <button type="reset" class="btn red">Reset</button>
+   </div>
+  </form>
+ </div>
+
+
+
+<script>
+function validateForm() {
+    var password = document.forms["regForm"]["password"].value;
+    var dob = document.forms["regForm"]["dob"].value;
+    var dobSplit = dob.split("-");
+    var dobYear = dobSplit[0];
+    var today = new Date();
+    var age = 2023 - dobYear;
+	var error = false;
+
+    var passwordError = document.getElementById("passwordError");
+    if (password.length < 8) {
+        passwordError.textContent = "Password must be at least 8 characters.";
+        document.forms["regForm"]["password"].focus();
+	error = true;
+    } else {
+        passwordError.textContent = "";
+    }
+
+    var dobError = document.getElementById("dobError");
+    if (age < 21) {
+        dobError.textContent = "Minors are not allowed!";
+        document.forms["regForm"]["dob"].focus();
+	error = true;
+     
+    } 
+    else {
+        dobError.textContent = "";
+    }
+if (error == false) {
+    var successMsg = document.getElementById("successMsg");
+    successMsg.textContent = "Hooray! Your account has been successfully created.";
+    
+}
+}
+
+</script>
+</body>
+</html>
